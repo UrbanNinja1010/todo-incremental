@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Incremental — Number Go Up</title>
+  <meta name="description" content="Incrementele todo-game: elke afgeronde taak is een trekking uit een onzekere beloning.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ===== Header: het grote getal + voortgang ===== -->
+    <header class="header">
+      <div class="header-top">
+        <div class="points-block">
+          <div class="points-label">Punten</div>
+          <div class="points-value" id="points-display">0</div>
+        </div>
+        <div class="header-badges">
+          <div class="badge" id="season-badge" title="Seizoen (prestige-teller)">S1</div>
+          <div class="badge badge-streak" id="streak-badge" title="Streak">🔥 0</div>
+          <div class="badge badge-pp" id="pp-badge" title="Prestige Punten">★ 0</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-label" id="level-label">Level 1</span>
+        <div class="progress-bar level-bar">
+          <div class="progress-fill" id="level-fill"></div>
+        </div>
+        <span class="level-next" id="level-next"></span>
+      </div>
+      <div class="bonus-row" id="bonus-row"></div>
+    </header>
+
+    <!-- ===== Navigatie ===== -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="today">Vandaag</button>
+      <button class="tab" data-tab="backlog">Backlog <span class="tab-count" id="backlog-count"></span></button>
+      <button class="tab" data-tab="upgrades">Upgrades</button>
+      <button class="tab" data-tab="prestige">Prestige</button>
+      <button class="tab" data-tab="stats">Stats</button>
+    </nav>
+
+    <main>
+      <!-- ===== Vandaag: de loting ===== -->
+      <section class="panel active" id="panel-today">
+        <div id="draw-area"></div>
+        <div id="combo-area"></div>
+      </section>
+
+      <!-- ===== Backlog ===== -->
+      <section class="panel" id="panel-backlog">
+        <form id="task-form" class="task-form">
+          <input type="text" id="task-title" placeholder="Nieuwe taak…" required maxlength="120" autocomplete="off">
+          <div class="task-form-row">
+            <label>Grootte
+              <select id="task-size">
+                <option value="S">S — klein klusje (10)</option>
+                <option value="M" selected>M — gemiddeld (25)</option>
+                <option value="L">L — groot (50)</option>
+                <option value="XL">XL — project-stap (100)</option>
+              </select>
+            </label>
+            <label>Prioriteit
+              <select id="task-priority">
+                <option value="1">1 — laag</option>
+                <option value="2" selected>2 — normaal</option>
+                <option value="3">3 — hoog</option>
+              </select>
+            </label>
+            <label>Deadline
+              <input type="date" id="task-deadline">
+            </label>
+            <button type="submit" class="btn btn-primary">Toevoegen</button>
+          </div>
+        </form>
+        <ul id="task-list" class="task-list"></ul>
+        <p class="empty-note hidden" id="backlog-empty">
+          De backlog is leeg. De sessie is klaar — dat begrensde einde is een feature. 🎉
+        </p>
+      </section>
+
+      <!-- ===== Upgrades ===== -->
+      <section class="panel" id="panel-upgrades">
+        <p class="panel-intro">Kosten schalen exponentieel: <code>basiskosten × 1,15ⁿ</code>. Tijdelijke upgrades resetten bij prestige.</p>
+        <ul id="upgrade-list" class="upgrade-list"></ul>
+      </section>
+
+      <!-- ===== Prestige ===== -->
+      <section class="panel" id="panel-prestige">
+        <div id="prestige-area"></div>
+      </section>
+
+      <!-- ===== Stats ===== -->
+      <section class="panel" id="panel-stats">
+        <dl class="stats-list" id="stats-list"></dl>
+        <details class="danger-zone">
+          <summary>Gevarenzone</summary>
+          <button class="btn btn-danger" id="reset-all">Alles wissen (volledige reset)</button>
+        </details>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Geen 0-punten-uitkomsten · geen nep-countdowns · de backlog is eindig. <span class="footer-dim">Data staat lokaal in je browser.</span></p>
+    </footer>
+  </div>
+
+  <!-- ===== Beloningsoverlay ===== -->
+  <div class="overlay hidden" id="reward-overlay">
+    <div class="reward-card" id="reward-card">
+      <div class="reward-roll" id="reward-roll"></div>
+      <div class="reward-points" id="reward-points">+0</div>
+      <div class="reward-breakdown" id="reward-breakdown"></div>
+      <button class="btn btn-primary" id="reward-close">Verder</button>
+    </div>
+  </div>
+
+  <!-- ===== Mystery Box overlay ===== -->
+  <div class="overlay hidden" id="box-overlay">
+    <div class="reward-card box-card">
+      <div class="box-visual" id="box-visual">🎁</div>
+      <div class="box-result hidden" id="box-result"></div>
+      <button class="btn btn-primary hidden" id="box-close">Mooi!</button>
+    </div>
+  </div>
+
+  <div id="particles"></div>
+  <script src="app.js"></script>
+</body>
+</html>
