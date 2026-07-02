@@ -71,6 +71,14 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-
   line-height: 1.1;
 }
 
+.points-rate {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent-2);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
 .header-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
 .badge {
@@ -189,7 +197,22 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-
 }
 
 .draw-option:hover { border-color: var(--accent-2); transform: translateY(-1px); }
-.draw-option.chosen { border-color: var(--accent); }
+.draw-option.bonus-lot { cursor: default; border-color: rgba(255, 212, 71, 0.35); }
+.draw-option.bonus-lot:hover { transform: none; border-color: rgba(255, 212, 71, 0.6); }
+
+.btn-sm { padding: 6px 12px; flex-shrink: 0; }
+
+.bonus-tag {
+  display: inline-block;
+  background: rgba(255, 212, 71, 0.14);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.task-item.bonus-item { border-color: rgba(255, 212, 71, 0.4); }
 
 .draw-option .size-tag { flex-shrink: 0; }
 
@@ -355,9 +378,14 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-
   padding: 24px 12px;
 }
 
-/* ===== Upgrades ===== */
+/* ===== Winkel (generatoren + upgrades) ===== */
 
-.upgrade-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.shop-heading { margin: 18px 2px 2px; font-size: 1rem; }
+.shop-heading:first-child { margin-top: 4px; }
+
+.upgrade-list { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 8px; }
+
+.upgrade-item.locked { opacity: 0.45; }
 
 .upgrade-item {
   background: var(--surface);

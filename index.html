@@ -17,6 +17,7 @@
         <div class="points-block">
           <div class="points-label">Punten</div>
           <div class="points-value" id="points-display">0</div>
+          <div class="points-rate" id="points-rate">+0/s</div>
         </div>
         <div class="header-badges">
           <div class="badge" id="season-badge" title="Seizoen (prestige-teller)">S1</div>
@@ -82,9 +83,13 @@
         </p>
       </section>
 
-      <!-- ===== Upgrades ===== -->
+      <!-- ===== Winkel: generatoren + taak-upgrades ===== -->
       <section class="panel" id="panel-upgrades">
-        <p class="panel-intro">Kosten schalen exponentieel: <code>basiskosten × 1,15ⁿ</code>. Tijdelijke upgrades resetten bij prestige.</p>
+        <h3 class="shop-heading">Generatoren</h3>
+        <p class="panel-intro">Produceren punten per seconde. Kosten schalen per aankoop (<code>× 1,15ⁿ</code>); bij 10 / 25 / 50 / 100 stuks verdubbelt de output van een tier.</p>
+        <ul id="generator-list" class="upgrade-list"></ul>
+        <h3 class="shop-heading">Taak-upgrades</h3>
+        <p class="panel-intro">Versterken je taak-inkomsten en de loting. Resetten bij prestige.</p>
         <ul id="upgrade-list" class="upgrade-list"></ul>
       </section>
 
